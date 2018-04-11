@@ -50,8 +50,7 @@ class LabeledData:
 class SelectData:
 
 
-    def __init__(self,timestamps,signals,button_names = []):
-        self.button_names = button_names
+    def __init__(self,timestamps,signals):
         self.signals = signals
         self.timestamps = timestamps
         self.pick_indices = range(len(timestamps))
@@ -179,29 +178,31 @@ if __name__ == "__main__":
     sdb = SignalDB('test')
 
     time = [ii / 100.0 for ii in range(1000)]
-    time = np.arange(0,1,0.001)
-    sig = np.random.rand(1000)
-    #sig = np.ones(1000)
+    #sig = np.random.rand(1000)
+    sig = np.ones(1000)
     sb = SignalBundle([sig,sig],time)
-    sd = SelectData(time,[sig],button_names=['one','two','three','4','5','6','7'])
+
+    sd = SelectData(time,[sig])
     indices = sd.boxSelect()
 
-    ld = LabeledData([sig,sig], time)
+    ld = LabeledData(sb, '')
     ld.label_data(indices,'hello')
-
     sdb.add_labeleddata(ld)
 
-    sd = SelectData(time,sig)
-    indices = sd.boxSelect()
-    ld2 = LabeledData([sig,sig],time)
-    ld2.label_data(indices,'newlabel')
+    # sd = SelectData(time,[sig])
+    # indices = sd.boxSelect()
+    # ld2 = LabeledData(sb,'label_2')
+    # ld2.label_data(indices,'newlabel')
 
-    sdb.add_labeleddata(ld2)
+    # sdb.add_labeleddata(ld2)
 
 
     sdb.commit()
 
-    rec = [r for r in sdb.db_sig]
-    print rec[0]['labels']
-    print len(rec)
 
+
+    # rec = [r for r in sdb.db_sig]
+    # print rec[0]['labels']
+    # print len(rec)
+
+    sdb.get_labeleddata()[-1].plotbins()
