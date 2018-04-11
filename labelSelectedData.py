@@ -179,11 +179,13 @@ if __name__ == "__main__":
     sdb = SignalDB('test')
 
     time = [ii / 100.0 for ii in range(1000)]
-    # sig = np.random.rand(1000)
-    sig = np.ones(1000)
+    time = np.arange(0,1,0.001)
+    sig = np.random.rand(1000)
+    #sig = np.ones(1000)
     sb = SignalBundle([sig,sig],time)
-    sd = SelectData(time,sig,button_names=['one','two','three','4','5','6','7'])
+    sd = SelectData(time,[sig],button_names=['one','two','three','4','5','6','7'])
     indices = sd.boxSelect()
+
     ld = LabeledData([sig,sig], time)
     ld.label_data(indices,'hello')
 
