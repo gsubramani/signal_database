@@ -3,8 +3,6 @@
 Storing labeled time series data to a database. Please see example.
 
 MIT license
-This isn't intended for public use as it isn't documented well. However, if you get it
-then you are free to use it however you want.
 
 ## NOTES
 
